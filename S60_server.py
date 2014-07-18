@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 Creates a network server in a Nokia Symbian^1/S60-5th edition mobile connected
-to an wi-fi lan, allowing the cellphone to be accessed remotely by another device.
+to an wi-fi lan, allowing the cell phone to be accessed remotely by another device.
 Requires the socket_tasks.py library.
 
 17/Jul/2014 Bernardo J.B. Schmitt - bernardo.jb.schmitt@gmail.com
