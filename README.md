@@ -21,7 +21,7 @@ Just add a copy of the following files to a folder:
 Starting
 ==============
 * Server: If you don't know the IP address from the mobile in the wlan, run the get_IP.py script. Otherwise just run the S60_server.py. If the python shell encounter any PATH problem, you can edit the "file_path" variable in both scripts. Additionally, you can edit the TCP port used in the S60_server.py file.
-* Client: Before starting the client you must set the server's IP address and TCP port at the beginning of socket_client.py. Then, run "import socket_client" or "reload(socket_client)" if you are using the Python IDLE or "python ./socket_client.py" if you are working directly at the shell terminal.
+* Client: Before starting the client you must set the server's IP address and TCP port at the beginning of socket_client.py. Then, run ```import socket_client``` or ```reload(socket_client)``` if you are using the Python IDLE or ```python ./socket_client.py``` if you are working directly at the shell terminal.
 
 Commands
 ==============
