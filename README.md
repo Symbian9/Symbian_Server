@@ -26,24 +26,17 @@ Starting
 Commands
 ==============
 
-- cd <directory> - Browse the cell phone server directory.
-- chdir <directory> - Browse the client directory.
-- cp <origin device> <file path> <destination device> <destination directory> - copy a file to a directory. You must indicate both the origin and destination devices by using the options -c or --cell for the cell phone and -d or --desktop for the client. 
-
-Examples:
-
-```cp -c foo.txt -d /home``` - copy the foo.txt file from the mobile to the /home directory from the client.
-
-```cp -desktop /home/bar.txt -cell ./``` - copy the bar.txt file from the client to the current server directory.
-
+- cd &lt;directory&gt; - Browse the cell phone server directory.
+- chdir &lt;directory&gt; - Browse the client directory.
+- cp &lt;origin device&gt; &lt;file path&gt; &lt;destination device&gt; &lt;destination directory&gt; - copy a file to a directory. You must indicate both the origin and destination devices by using the options -c or --cell for the cell phone and -d or --desktop for the client.<br> 
+Examples:<br>
+```cp -c foo.txt -d /home``` - copy the foo.txt file from the mobile to the /home directory from the client.<br>
+```cp -desktop /home/bar.txt -cell ./``` - copy the bar.txt file from the client to the current server directory.<br>
 - getcwd - Returns the current client directory.
-- getSMS [-f|--filter] <name> [-s|--save] <file_name> [-v|--verbose] - Returns the inbox messages. The option -f filters them by contact name. -s saves the SMS in a file, while -v print them on screen.  
-
-Examples: 
-
-```getSMS --save SMS.txt``` - Save all messages in SMS.txt.
-
-```getSMS -f John -v``` - Print all John's messages.
+- getSMS [-f|--filter] &lt;name&gt; [-s|--save] &lt;file_name&gt; [-v|--verbose] - Returns the inbox messages. The option -f filters them by contact name. -s saves the SMS in a file, while -v print them on screen.<br> 
+Examples:<br>
+```getSMS --save SMS.txt``` - Save all messages in SMS.txt.<br>
+```getSMS -f John -v``` - Print all John's messages.<br>
 
 - ls - List all folders and files from the actual directory. 
 - exit - Finish both server and client.
