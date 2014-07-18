@@ -26,4 +26,11 @@ Starting
 Commands
 ==============
 
-- cd
+- cd [directory] - Browse the cell phone server directory.
+- chdir [directory] - Browse the client directory.
+- cp [-origin device] [file path] [-destination device] [destination directory] - copy a file to a directory. You must indicate both the origin and destination devices by using the options -c or --cell for the cell phone and -d or --desktop for the client. Examples:
+
+``` cp -c foo.txt -d /home (or alternatively cp -cell foo.txt -desktop /home) - copy the foo.txt file from the mobile to the /home directory from the client.```
+
+```cp -d /home/bar.txt -c ./ (or alternatively cp -desktop /home/bar.txt -cell ./) - copy the bar.txt file from the client to the current server directory.```
+
