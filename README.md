@@ -26,11 +26,24 @@ Starting
 Commands
 ==============
 
-- cd [directory] - Browse the cell phone server directory.
-- chdir [directory] - Browse the client directory.
-- cp [-origin device] [file path] [-destination device] [destination directory] - copy a file to a directory. You must indicate both the origin and destination devices by using the options -c or --cell for the cell phone and -d or --desktop for the client. Examples:
+- cd <directory> - Browse the cell phone server directory.
+- chdir <directory> - Browse the client directory.
+- cp <origin device> <file path> <destination device> <destination directory> - copy a file to a directory. You must indicate both the origin and destination devices by using the options -c or --cell for the cell phone and -d or --desktop for the client. 
 
-``` cp -c foo.txt -d /home (or alternatively cp -cell foo.txt -desktop /home) - copy the foo.txt file from the mobile to the /home directory from the client.```
+Examples:
 
-```cp -d /home/bar.txt -c ./ (or alternatively cp -desktop /home/bar.txt -cell ./) - copy the bar.txt file from the client to the current server directory.```
+```cp -c foo.txt -d /home``` - copy the foo.txt file from the mobile to the /home directory from the client.
 
+```cp -desktop /home/bar.txt -cell ./``` - copy the bar.txt file from the client to the current server directory.
+
+- getcwd - Returns the current client directory.
+- getSMS [-f|--filter] <name> [-s|--save] <file_name> [-v|--verbose] - Returns the inbox messages. The option -f filters them by contact name. -s saves the SMS in a file, while -v print them on screen.  
+
+Examples: 
+
+```getSMS --save SMS.txt``` - Save all messages in SMS.txt.
+
+```getSMS -f John -v``` - Print all John's messages.
+
+- ls - List all folders and files from the actual directory. 
+- exit - Finish both server and client.
