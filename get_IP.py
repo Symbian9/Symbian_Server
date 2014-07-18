@@ -23,3 +23,5 @@ apo = sel_access_point()
 apo.start()
 
 note(u"Cell IP: "+apo.ip(),"info")
+
+
