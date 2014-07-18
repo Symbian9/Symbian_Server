@@ -2,7 +2,7 @@
 """
 Connect the current device to a network server created by a 
 Nokia Symbian^1/S60-5th edition mobile in the same lan,
-allowing the cellphone to be accessed remotely.
+allowing the cell phone to be accessed remotely.
 Requires the socket_tasks.py library.
 
 17/Jul/2014 Bernardo J.B. Schmitt - bernardo.jb.schmitt@gmail.com
