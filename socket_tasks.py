@@ -31,6 +31,7 @@ class SymbServerObj(socket._socketobject):
         self.listen(1)
         self.dir = file_path
         os.chdir(self.dir)
+        note(u"Server created at %s port %d!" % (IP,port),"info")
     
     def cd(self,directory):
         try:
@@ -41,11 +42,11 @@ class SymbServerObj(socket._socketobject):
             self.client.sendall('FAIL')
             
     def cp(self,sep_cmd):
-        status = send_recv_parse(sep_cmd[1:],'cell')
+        sep_cmd, status = send_recv_parse(sep_cmd[1:],'cell')
         if status == 'SEND':
-            send_file(self.client,sep_cmd[2]) 
+            send_file(self.client,sep_cmd[1]) 
         elif status == 'RECEIVE':
-            recv_file(self.client,sep_cmd[4])
+            recv_file(self.client,sep_cmd[3])
 
     def get_SMS(self):
         box = inbox.Inbox(inbox.EInbox)
@@ -96,11 +97,11 @@ class ClientObj(socket._socketobject):
             print 'Directory not found!'         
             
     def cp(self,sep_cmd):
-        status = send_recv_parse(sep_cmd[1:],'desktop')
+        sep_cmd, status = send_recv_parse(sep_cmd[1:],'desktop')
         if status == 'SEND':
-            send_file(self,sep_cmd[2])
+            send_file(self,sep_cmd[1])
         elif status == 'RECEIVE':
-            recv_file(self,sep_cmd[4])
+            recv_file(self,sep_cmd[3])
             
     def getcwd(self):
         print os.getcwd() 
@@ -135,7 +136,7 @@ class ClientObj(socket._socketobject):
 def safe_recv(sock):
     dir_len = sock.recv(4096)
     sock.sendall('OK')
-    objects=''
+    objects = ''
     while len(objects)<int(dir_len):
         buff = sock.recv(1024)
         objects += buff
@@ -154,15 +155,16 @@ def recv_file(sock,dir_name):
     else:
         status = 'FAIL'
     sock.sendall(status)
-    if status=='OK' and file_name!='FAIL':
+    if status == 'OK' and file_name != 'FAIL':
         data = safe_recv(sock)
         file_id = open(dir_name+os.sep+file_name, 'wb')
         file_id.write(data)
         file_id.close()
-    elif status=='FAIL':
+    elif status == 'FAIL':
         print 'Directory not valid!'
 
 def send_file(sock,file_path):
+
     if os.path.exists(file_path):
         file_name = os.path.basename(file_path)
     else:
@@ -170,30 +172,43 @@ def send_file(sock,file_path):
         print 'File not found!'
     safe_send(sock,file_name.encode('latin-1'))
     status = sock.recv(4096)
-    if status=='OK' and file_name!='FAIL':
+    if status == 'OK' and file_name != 'FAIL':
         file_id = open(file_path, 'rb')
         data = file_id.read()
         safe_send(sock,data)
         file_id.close()
-    elif status=='FAIL':
+    elif status == 'FAIL':
         print 'Directory not valid!'
 
-# Function that parses whether the device is receaving or sending files.
+# Function that parses whether the device is receaving or sending files. 
+# It also detects file names with spaces and correctly encapsulates them.
+# Additionally the function checks if the options were correctly given. 
 def send_recv_parse(cmd,device):
     
-    if len(cmd)==4:
+    if ('-d' or '--desktop') in cmd and ('-c' or '--cell') in cmd and \
+         cmd[0] == ('-d' or '--desktop' or '-c' or '--cell'):
+        
+        if len(cmd) > 4:
+            for opt in ['-d', '--desktop', '-c','--cell']:
+                if opt in cmd[1:]:
+                    idx = cmd.index(opt)                       
+    
+            name = ' '.join(cmd[1:idx]) 
+            directory = ' '.join(cmd[idx+1:])
+            cmd = [cmd[0], name, cmd[idx], directory]
+ 
         options,not_opt = getopt.getopt(cmd,'c:d:',['cell=','desktop='])
-        if (options[0][0]==('-c' or '--cell') and
-        options[1][0]==('-d' or '--desktop') and device=='cell') or \
-        (options[0][0]==('-d' or '--desktop') and 
-        options[1][0]==('-c' or '--cell') and device=='desktop'):
+        if (options[0][0] == ('-c' or '--cell') and
+        options[1][0] == ('-d' or '--desktop') and device == 'cell') or \
+        (options[0][0] == ('-d' or '--desktop') and 
+        options[1][0] == ('-c' or '--cell') and device == 'desktop'):
             status = 'SEND'
         else:
             status = 'RECEIVE'
-        return status
+        return cmd, status
     else:
-        print 'Cannot copy, number of parameters incorrect!'
-        return 'FAIL'
+        print 'Cannot copy, incorrect parameters options!'
+        return cmd, 'FAIL'
 
 #-----------------
 #Set of auxiliary functions.
@@ -223,7 +238,7 @@ def sel_access_point():
     return apo
     
 def split_SMS(SMS,name):
-    index = [n for n in range(len(SMS)) if SMS[n].split('-',1)[0][:-1]==name]
+    index = [n for n in range(len(SMS)) if SMS[n].split('-',1)[0][:-1] == name]
     return index
     
 def write_list(objects,f_id):
