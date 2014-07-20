@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Connect the current device to a network server created by a 
+Connect the current device to a network server created by a
 Nokia Symbian^1/S60-5th edition mobile in the same lan,
 allowing the cell phone to be accessed remotely.
 Requires the socket_tasks.py library.
@@ -19,34 +19,33 @@ from socket_tasks import *
 sock_client = ClientObj(server_IP, server_port)
 
 while True:
-    
+
     try:
         cmd = raw_input(sock_client.dir+'$ ')
     except:
         sock_client.close()
         break
-    safe_send(sock_client,cmd.decode('utf-8').encode('latin-1'))
-    sep_cmd = cmd.split(' ')  
-    
+    safe_send(sock_client, cmd.decode('utf-8').encode('latin-1'))
+    sep_cmd = cmd.split(' ')
+
     if sep_cmd[0].strip().lower() == 'cd':
         sock_client.cd()
-        
+
     if sep_cmd[0].strip().lower() == 'chdir':
         sock_client.chdir(sep_cmd)
-            
+
     if sep_cmd[0].strip().lower() == 'cp':
         sock_client.cp(sep_cmd)
-    
+
     if sep_cmd[0].strip().lower() == 'getcwd':
-        sock_client.getcwd() 
-        
+        sock_client.getcwd()
+
     if sep_cmd[0] == 'getSMS':
         sock_client.get_SMS(sep_cmd)
-    
+
     if sep_cmd[0].strip().lower() == 'ls':
         sock_client.ls()
-        
+
     if sep_cmd[0].strip().lower() == 'exit':
         sock_client.close()
         break
-

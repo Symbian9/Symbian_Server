@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Small script to get the current IP address from a Nokia Symbian^1/S60-5th edition 
+Small script to get the current IP address from a Nokia Symbian^1/S60-5th edition
 mobile connected to an wi-fi lan.
 Requires the socket_tasks.py library.
 
@@ -22,6 +22,4 @@ app.title = u"Get IP"
 apo = sel_access_point()
 apo.start()
 
-note(u"Cell IP: "+apo.ip(),"info")
-
-
+note(u"Cell IP: "+apo.ip(), "info")
