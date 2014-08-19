@@ -186,7 +186,7 @@ def send_file(sock, file_path):
 def send_recv_parse(cmd, device):
 
     if (('-d' or '--desktop') in cmd and ('-c' or '--cell') in cmd and
-       cmd[0] == ('-d' or '--desktop' or '-c' or '--cell')):
+       cmd[0] in ['-d', '--desktop', '-c', '--cell']):
 
         if len(cmd) > 4:
             for opt in ['-d', '--desktop', '-c', '--cell']:
